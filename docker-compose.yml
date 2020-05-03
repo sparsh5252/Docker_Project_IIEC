@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+        postgresOS:
+                image: postgres:10
+                environment:
+                        POSTGRES_DB: pg_database
+                        POSTGRES_PASSWORD: pgpwd1
+                volumes:
+                        - postgres_st:/var/lib/postgresql/data
+                restart: always
+        
+        drupalOS:
+                image: drupal:8-apache
+                volumes:
+                        - drupal_st:/var/www/html
+                depends_on:
+                        - postgresOS
+                ports:
+                        - 3031:80
+                restart: always
+
+volumes:
+        postgres_st:
+        drupal_st:        
+                                
